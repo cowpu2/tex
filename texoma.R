@@ -19,25 +19,26 @@ library(magrittr)
 # 2017-07-11 19:15:38 ------------------------------mdp
 # 2017-07-15 19:22:25 ------------------------------mdp
 # 2017-07-16 16:54:43 ------------------------------mdp
+# 2017-07-30 14:41:54 ------------------------------mdp
+
 
 ##  Load archived data
-#may_jun_2017 <- read_csv("H:/__R__/texoma/csv/may_jun_2017.csv")
+may_jun_2017 <- read_csv("H:/git_R/tex/archived/may_jun_2017.csv")
 
 # Load all csv files in working dir and rbind them into one df
 
-csvpath = "H:/Python_Scripts/texoma/csv/"
-path = "H:/__R__/texoma/"
+csvpath = "H:/git_R/tex/csv/"
+path = "H:/git_R/tex/"
 setwd(csvpath)
 multi_files <- dir(pattern = "\\.csv")
 multi.df <- lapply(multi_files, read.csv, header = FALSE, stringsAsFactors = FALSE)
 Temp.df <- do.call(rbind, multi.df)
 setwd(path)
 
-##  ===============================================================
 
 texoma <- Temp.df
 
-texoma <- texoma %>% mutate(paste0(year="2017/", V1," ", V2)) ##  Create a year column
+texoma <- texoma %>% mutate(paste0(year = "2017/", V1," ", V2)) ##  Create a year column
 
 
 ##  rename some columns - delete others
@@ -69,6 +70,10 @@ texoma[ , 3 ][ texoma[ , 3 ] == -901] <- NA
 #may_jun <-may_jun[order(as.Date(may_jun$Time)),]
 #write_csv(may_jun, "csv/may_jun_2017.csv")
 #
+
+#  Combine previous and current data together
+texoma <- rbind(may_jun_2017, texoma)
+
 texoma <-texoma[order(as.Date(texoma$Time)),]
 
 ##  Used for ggtitle and filenames
