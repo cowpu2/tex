@@ -21,8 +21,8 @@ import csv
 ##  http://www.swt-wc.usace.army.mil/webdata/gagedata/DSNT2.20170501.html  ##  structure of previous day html links
 
 ##todo  Enter month name and month number below
-month_name = "july"        ##   Enter month name here
-month_num = "07"           ##   Enter month number here - two digits
+month_name = "sep"        ##   Enter month name here
+month_num = "09"           ##   Enter month number here - two digits
 days = list(range(1, 31))  ##   Change number of days here - one more than you need
 base_url = "http://www.swt-wc.usace.army.mil/webdata/gagedata/DSNT2.2017"
 extension_url = ".html"
