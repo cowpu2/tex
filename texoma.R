@@ -22,10 +22,11 @@ library(magrittr)
 # 2017-07-30 14:41:54 ------------------------------mdp
 # 2017-09-29 19:20:42 ------------------------------mdp
 # 2017-10-14 17:27:57 ------------------------------mdp
+# 2017-12-09 13:56:33 ------------------------------mdp
 
 
-##  Load archived data
-may_aug_2017 <- read_csv("H:/git_R/tex/archived/may_aug_2017.csv")
+##  Load archived data  ---- Change this when updating  ----------------
+may_sep_2017 <- read_csv("H:/git_R/tex/archived/may_sep_2017.csv")
 
 # Load all csv files in working dir and rbind them into one df
 
@@ -69,18 +70,18 @@ texoma[ , 2 ][ texoma[ , 2 ] == -901] <- NA
 texoma[ , 3 ][ texoma[ , 3 ] == -901] <- NA
 
 
-#  Write out full months to archive file
-sept <- texoma %>% filter(Time < as.Date("2017-10-01 00:00:00"))
-sept <-sept[order(as.Date(sept$Time)),]
-write_csv(sept, "csv/sept_2017.csv")
+# #  Write out full months to archive file
+# sept <- texoma %>% filter(Time < as.Date("2017-10-01 00:00:00"))
+# sept <-sept[order(as.Date(sept$Time)),]
+# write_csv(sept, "csv/sept_2017.csv")
 
 
-#  Combine previous and current data together
-texoma <- rbind(may_aug_2017, texoma)
+#  Combine previous and current data together  -- Change file name on updates
+texoma <- rbind(may_sep_2017, texoma)
 
 texoma <-texoma[order(as.Date(texoma$Time)),]
 
-write_csv(texoma, "csv/may_sep_2017.csv")  ##  Change ending month here******
+write_csv(texoma, "csv/may_nov_2017.csv")  ##  Change ending month here******
 
 
 ##  Used for ggtitle and filenames
@@ -104,13 +105,13 @@ print(elev )
 
 
 
-##  ################    Not enough data to even plot
-# flow <- ggplot(texoma, aes(Time,Inflow), rm.na = TRUE) +
-#   geom_line(color = "blue") +
-#   geom_line(aes(y = Discharge), color = "green") +
-#   scale_x_datetime(date_breaks = "4 day",
-#                    date_labels = "%b %d") +
-#
-#   theme(axis.text.x = element_text(colour = "blue", angle = 90))  +
-#   theme(panel.background = element_rect(fill = 'grey75'))
-# print(flow)
+#  ################    Not enough data to even plot
+flow <- ggplot(texoma, aes(Time,Inflow), rm.na = TRUE) +
+  geom_line(color = "blue") +
+  geom_line(aes(y = Discharge), color = "green") +
+  scale_x_datetime(date_breaks = "4 day",
+                   date_labels = "%b %d") +
+
+  theme(axis.text.x = element_text(colour = "blue", angle = 90))  +
+  theme(panel.background = element_rect(fill = 'grey75'))
+print(flow)
